@@ -1,0 +1,44 @@
+version: "3"
+services:
+  postgres:
+    container_name: plant-manager-db
+    image: postgis/postgis
+    hostname: postgres
+    ports:
+      - "4432:5432"
+    networks:
+      - plant-manager
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: plant-manager-test
+    volumes:
+      # Host env file for persistent data storage, change as desired
+      - $HOME/docker/volumes/plant-manager:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # pgAdmin is a really nice system for working w/ postgres: https://www.pgadmin.org/
+  pgadmin:
+    container_name: plant-manager-pgadmin
+    image: dpage/pgadmin4:4.24
+    depends_on:
+      - postgres
+    ports:
+      # host : container
+      - "5430:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres
+      PGADMIN_DEFAULT_PASSWORD: postgres
+    networks:
+      - plant-manager
+    restart: unless-stopped
+
+  # nats comm
+  nats:
+    container_name: nats
+    image: nats:2.1.6
+    ports:
+      - 3222:4222
+networks:
+  plant-manager:
+    driver: bridge

@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package places;
+
+import "types.proto";
+
+option go_package = ".;plantmanager";
+
+service V1Places {
+    rpc GetPlace(GetPlaceRequest) returns (GetPlaceReply) {}
+    rpc FindPlaces(FindPlacesRequest) returns (FindPlacesReply) {}
+    rpc CreatePlace(CreatePlaceRequest) returns (CreatePlaceReply) {}
+    rpc DestroyPlace(DestroyPlaceRequest) returns (types.EmptyReply) {}
+}
+
+message GetPlaceRequest {
+    int64 id = 1;
+    string JWT = 2;
+}
+
+message GetPlaceReply {
+    types.Place place = 1;
+}
+
+message FindPlacesRequest {
+    int64 limit = 1;
+    int64 offset = 2;
+    string JWT = 3;
+}
+
+message FindPlacesReply {
+    repeated types.Place places = 1;
+}
+
+message CreatePlaceRequest {
+    string name = 1;
+    string JWT = 2;
+}
+
+message CreatePlaceReply {
+    types.Place place = 1;
+}
+
+message DestroyPlaceRequest {
+    int64 id = 1;
+    string JWT = 2;
+}

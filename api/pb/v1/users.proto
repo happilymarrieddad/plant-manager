@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package users;
+
+import "types.proto";
+
+option go_package = ".;plantmanager";
+
+service V1Users {
+    rpc Login(LoginRequest) returns (LoginReply) {}
+    rpc VerifyJWT(VerifyJWTRequest) returns (VerifyJWTReply) {}
+    rpc AddUser(AddUserRequest) returns (AddUserReply) {}
+    rpc GetUser(GetUserRequest) returns (GetUserReply) {}
+    rpc FindUsers(FindUsersRequest) returns (FindUsersReply) {}
+}
+
+message GetUserRequest {
+    int64 id = 1;
+    string JWT = 2;
+}
+
+message GetUserReply {
+    types.User user = 1;
+}
+
+message VerifyJWTRequest {
+    string JWT = 1;
+    string route = 2;
+}
+
+message VerifyJWTReply {
+    bool valid = 1;
+    bool hasPermission = 2;
+    repeated types.Permission permissions = 3;
+}
+
+message LoginRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message LoginReply {
+    string token = 1;
+    repeated types.Permission permissions = 2;
+}
+
+message AddUserRequest {
+    string firstName = 1;
+    string lastName = 2;
+    string email = 3;
+    string JWT = 4;
+}
+
+message AddUserReply {
+    types.User user = 1;
+}
+
+message FindUsersRequest {
+    int64 limit = 1;
+    int64 offset = 2;
+    string JWT = 3;
+}
+
+message FindUsersReply {
+    repeated types.User users = 1;
+}

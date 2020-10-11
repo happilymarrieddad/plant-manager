@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Example Customer",
+        "users": [
+            {
+                "email": "nick@mail.com",
+                "firstName": "Nick",
+                "lastName": "Kotenberg",
+                "password": "pass",
+                "isCustomerAdmin": true
+            }
+        ]
+    }
+]
