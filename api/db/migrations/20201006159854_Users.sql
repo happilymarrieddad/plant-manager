@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS users (
   first_name           text               NOT NULL,
   last_name            text               NOT NULL,
   password             text               NOT NULL,
-  customer_id          int                NOT NULL,
+  customer_id          int                NOT NULL REFERENCES customers (id),
   created_at           TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at           TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   UNIQUE(email)

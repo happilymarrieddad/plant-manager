@@ -30,7 +30,7 @@ const actions = {
             client.login(request, { 'custom-header-1': 'value1' }, (err, resp) => {
                 state.loading = false;
                 if (err) {
-                    return resolve([null, err]);
+                    return resolve([null, err.message]);
                 }
                 window.localStorage.setItem('jwt', resp.getToken());
                 commit('setPermissions', resp.toObject().permissionsList);
@@ -48,4 +48,3 @@ export default {
     actions,
     getters
 }
-

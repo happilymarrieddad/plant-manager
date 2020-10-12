@@ -23,9 +23,22 @@ message Permission {
     int64 userId = 3;
 }
 
+message PlaceSlot {
+    int64 id = 1;
+    string name = 2;
+    int64 placeId = 3;
+    int64 row_id = 4;
+    int64 column_id = 5;
+    int64 customer_id = 6;
+}
+
 message Place {
     int64 id = 1;
     string name = 2;
+    int64 rows = 3;
+    int64 columns = 4;
+    int64 customerId = 5;
+    repeated PlaceSlot slots = 6;
 }
 
 message EmptyReply {

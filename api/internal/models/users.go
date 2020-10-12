@@ -8,7 +8,7 @@ import (
 )
 
 type Users interface {
-	Get(id int64) (user *types.User, err error)
+	Get(id, customerID int64) (user *types.User, err error)
 	Find(customerID int64) (users []*types.User, err error)
 	FindByEmail(email string) (user *types.User, err error)
 	Create(user *types.User) error
@@ -22,9 +22,9 @@ type users struct {
 	db *xorm.Engine
 }
 
-func (u *users) Get(id int64) (user *types.User, err error) {
+func (u *users) Get(id, customerID int64) (user *types.User, err error) {
 	user = new(types.User)
-	has, err := u.db.ID(id).Get(user)
+	has, err := u.db.ID(id).Where("customer_id = ?", customerID).Get(user)
 	if err != nil {
 		return
 	}

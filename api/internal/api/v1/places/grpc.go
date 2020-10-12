@@ -5,6 +5,7 @@ import (
 	"plant-manager/internal/api/apiutils"
 	"plant-manager/internal/permissions"
 	"plant-manager/internal/types"
+	"plant-manager/internal/utils"
 	pb "plant-manager/pb/go"
 )
 
@@ -24,7 +25,12 @@ func (h *grpcHandler) GetPlace(ctx context.Context, req *pb.GetPlaceRequest) (re
 		return nil, err
 	}
 
-	cust, err := apiutils.RetrievePlacesModelFromContext(ctx).Get(req.GetId())
+	user, err := utils.GetDataFromToken(req.GetJWT())
+	if err != nil {
+		return
+	}
+
+	cust, err := apiutils.RetrievePlacesModelFromContext(ctx).Get(req.GetId(), user.CustomerID)
 	if err != nil {
 		return
 	}
@@ -41,7 +47,13 @@ func (h *grpcHandler) FindPlaces(ctx context.Context, req *pb.FindPlacesRequest)
 		return nil, err
 	}
 
-	custs, err := apiutils.RetrievePlacesModelFromContext(ctx).Find()
+	user, err := utils.GetDataFromToken(req.GetJWT())
+	if err != nil {
+		return
+	}
+
+	custs, err := apiutils.RetrievePlacesModelFromContext(ctx).
+		Find(user.CustomerID, req.GetLimit(), req.GetOffset())
 	if err != nil {
 		return
 	}
@@ -60,14 +72,38 @@ func (h *grpcHandler) CreatePlace(ctx context.Context, req *pb.CreatePlaceReques
 		return nil, err
 	}
 
+	user, err := utils.GetDataFromToken(req.GetJWT())
+	if err != nil {
+		return
+	}
+
 	newPlace := &types.Place{
-		Name: req.GetName(),
+		Name:       req.GetName(),
+		Rows:       req.GetRows(),
+		Columns:    req.GetColumns(),
+		CustomerID: user.CustomerID,
 	}
 	if err = apiutils.RetrievePlacesModelFromContext(ctx).Create(newPlace); err != nil {
 		return
 	}
 
 	reply.Place = newPlace.ToProtobuf()
+
+	return
+}
+
+func (h *grpcHandler) UpdatePlace(ctx context.Context, req *pb.UpdatePlaceRequest) (reply *pb.EmptyReply, err error) {
+	reply = new(pb.EmptyReply)
+	if err = apiutils.UserHasPermission(ctx, permissions.PermissionPlacesUpdate); err != nil {
+		return nil, err
+	}
+
+	if err = apiutils.RetrievePlacesModelFromContext(ctx).Update(
+		req.GetId(),
+		req.GetName(),
+	); err != nil {
+		return
+	}
 
 	return
 }
@@ -80,6 +116,22 @@ func (h *grpcHandler) DestroyPlace(ctx context.Context, req *pb.DestroyPlaceRequ
 	}
 
 	if err = apiutils.RetrievePlacesModelFromContext(ctx).Destroy(req.GetId()); err != nil {
+		return
+	}
+
+	return
+}
+
+func (h *grpcHandler) UpdatePlaceSlot(ctx context.Context, req *pb.UpdatePlaceSlotRequest) (reply *pb.EmptyReply, err error) {
+	reply = new(pb.EmptyReply)
+	if err = apiutils.UserHasPermission(ctx, permissions.PermissionPlacesUpdate); err != nil {
+		return nil, err
+	}
+
+	if err = apiutils.RetrievePlacesModelFromContext(ctx).UpdateSlot(
+		req.GetId(),
+		req.GetName(),
+	); err != nil {
 		return
 	}
 

@@ -53,10 +53,13 @@ router.beforeEach((to, from, next) => {
 
     const request = new userObjs.VerifyJWTRequest();
 
-    request.setJwt(window.localStorage.getItem("jwt"));
+    console.log(window.localStorage.getItem("jwt"))
     request.setRoute(to.path);
+    request.setJwt(window.localStorage.getItem("jwt"));
 
     client.verifyJWT(request, { 'custom-header-1': 'value1' }, (err, resp) => {
+        console.log(err)
+        console.log(resp)
         if (err) {
             return next({ name: 'Login' })
         }

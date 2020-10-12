@@ -8,12 +8,12 @@ import (
 type User struct {
 	ID         int64      `json:"id" xorm:"'id' pk autoincr"`
 	Email      string     `json:"email" xorm:"email" validate:"required"`
-	FirstName  string     `json:"firstName" xorm:"first_name" validate:"required"`
-	LastName   string     `json:"lastName" xorm:"last_name" validate:"required"`
+	FirstName  string     `json:"first_name" xorm:"first_name" validate:"required"`
+	LastName   string     `json:"last_name" xorm:"last_name" validate:"required"`
 	Password   string     `json:"password" xorm:"password" validate:"required"`
-	CustomerID int64      `json:"customerId" xorm:"customer_id" validate:"required"`
-	CreatedAt  *time.Time `json:"createdAt" xorm:"created_at"`
-	UpdatedAt  *time.Time `json:"updatedAt" xorm:"updated_at"`
+	CustomerID int64      `json:"customer_id" xorm:"customer_id" validate:"required"`
+	CreatedAt  *time.Time `json:"created_at" xorm:"created_at"`
+	UpdatedAt  *time.Time `json:"updated_at" xorm:"updated_at"`
 }
 
 func (u *User) TableName() string {

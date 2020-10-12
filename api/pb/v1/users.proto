@@ -24,8 +24,8 @@ message GetUserReply {
 }
 
 message VerifyJWTRequest {
-    string JWT = 1;
-    string route = 2;
+    string route = 1;
+    string JWT = 2;
 }
 
 message VerifyJWTReply {

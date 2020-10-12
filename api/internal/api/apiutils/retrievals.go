@@ -20,6 +20,13 @@ func RetrieveUsersModelFromContext(ctx context.Context) models.Users {
 	return nil
 }
 
+func RetrievePlacesModelFromContext(ctx context.Context) models.Places {
+	if c, ok := ctx.Value(globalPlacesKey).(models.Places); ok {
+		return c
+	}
+	return nil
+}
+
 func RetrievePermissionsModelFromContext(ctx context.Context) models.Permissions {
 	if c, ok := ctx.Value(globalPermissionsKey).(models.Permissions); ok {
 		return c

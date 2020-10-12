@@ -4,12 +4,13 @@
 CREATE TABLE IF NOT EXISTS containers (
   id                   serial             NOT NULL PRIMARY key,
   name                 text               NOT NULL,
-  place_slot_id        int                NOT NULL,
+  place_slot_id        int                NOT NULL REFERENCES place_slots (id),
   rows                 int                NOT NULL,
   columns              int                NOT NULL,
+  customer_id          int                NOT NULL REFERENCES customers (id),
   created_at           TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at           TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE(name, place_id)
+  UNIQUE(name, place_slot_id, customer_id)
 );
 
 COMMENT ON TABLE containers IS '

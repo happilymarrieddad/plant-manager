@@ -15,6 +15,7 @@ const (
 	globalUsersKey       = "v1models:users"
 	globalCustomersKey   = "v1models:customers"
 	globalPermissionsKey = "v1models:permissions"
+	globalPlacesKey      = "v1models:places"
 	storageUserKey       = "storage:user"
 )
 
@@ -39,6 +40,11 @@ func ModelInjector(db *xorm.Engine) grpc.UnaryServerInterceptor {
 			ctx,
 			globalPermissionsKey,
 			models.NewPermission(db),
+		)
+		ctx = context.WithValue(
+			ctx,
+			globalPlacesKey,
+			models.NewPlace(db),
 		)
 
 		// BEFORE the request

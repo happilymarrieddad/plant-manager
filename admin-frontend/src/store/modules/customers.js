@@ -29,7 +29,7 @@ const actions = {
             client.findCustomers(request, { 'custom-header-1': 'value1' }, (err, resp) => {
                 state.loading = false;
                 if (err) {
-                    return resolve([null, err]);
+                    return resolve([null, err.message]);
                 }
                 const list = resp.toObject().customersList
                 commit('setList', list)
@@ -49,7 +49,7 @@ const actions = {
             client.createCustomer(request, { 'custom-header-1': 'value1' }, (err) => {
                 state.loading = false;
                 if (err) {
-                    return resolve(err);
+                    return resolve(err.message);
                 }
 
                 return resolve(null);
@@ -68,7 +68,7 @@ const actions = {
             client.destroyCustomer(request, { 'custom-header-1': 'value1' }, (err) => {
                 state.loading = false;
                 if (err) {
-                    return resolve(err);
+                    return resolve(err.message);
                 }
 
                 return resolve();

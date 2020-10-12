@@ -20,6 +20,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	db.ShowSQL(true)
 
 	api.Run(db, 50051)
 }

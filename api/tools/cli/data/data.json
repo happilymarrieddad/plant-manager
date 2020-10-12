@@ -4,8 +4,8 @@
         "users": [
             {
                 "email": "nick@mail.com",
-                "firstName": "Nick",
-                "lastName": "Kotenberg",
+                "first_name": "Nick",
+                "last_name": "Kotenberg",
                 "password": "pass",
                 "isCustomerAdmin": true
             }

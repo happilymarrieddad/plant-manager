@@ -51,6 +51,7 @@ func SeedData(db *xorm.Engine) (err error) {
 			}
 
 			newUser := u.User
+			newUser.CustomerID = cust.ID
 
 			fmt.Println("Attempting to create user " + newUser.Email)
 			if err = usersModel.Create(newUser); err != nil {
@@ -61,8 +62,9 @@ func SeedData(db *xorm.Engine) (err error) {
 			if u.IsCustomerAdmin {
 				fmt.Printf("Assigning system user permission to user %s \n", newUser.Email)
 				if err = permissionModel.Create(&types.Permission{
-					Name:   string(permissions.PermissionSystemUser),
-					UserID: newUser.ID,
+					Name:       string(permissions.PermissionSystemUser),
+					UserID:     newUser.ID,
+					CustomerID: cust.ID,
 				}); err != nil {
 					return
 				}
@@ -70,8 +72,9 @@ func SeedData(db *xorm.Engine) (err error) {
 				for _, p := range permissions.AllPermissions {
 					fmt.Printf("Assigning permission %s to user %s \n", string(p), newUser.Email)
 					if err = permissionModel.Create(&types.Permission{
-						Name:   string(p),
-						UserID: newUser.ID,
+						Name:       string(p),
+						UserID:     newUser.ID,
+						CustomerID: cust.ID,
 					}); err != nil {
 						return
 					}

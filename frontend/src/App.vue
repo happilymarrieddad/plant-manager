@@ -4,6 +4,7 @@
         <div class="uk-navbar-left">
             <ul class="uk-navbar-nav">
                 <li><router-link to="/">Home</router-link></li>
+                <li><router-link to="/places">Places</router-link></li>
             </ul>
         </div>
     </nav>

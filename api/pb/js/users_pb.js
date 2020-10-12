@@ -577,8 +577,8 @@ proto.users.VerifyJWTRequest.prototype.toObject = function(opt_includeInstance) 
  */
 proto.users.VerifyJWTRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    jwt: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    route: jspb.Message.getFieldWithDefault(msg, 2, "")
+    route: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    jwt: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -617,11 +617,11 @@ proto.users.VerifyJWTRequest.deserializeBinaryFromReader = function(msg, reader)
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setJwt(value);
+      msg.setRoute(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setRoute(value);
+      msg.setJwt(value);
       break;
     default:
       reader.skipField();
@@ -652,14 +652,14 @@ proto.users.VerifyJWTRequest.prototype.serializeBinary = function() {
  */
 proto.users.VerifyJWTRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getJwt();
+  f = message.getRoute();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = message.getRoute();
+  f = message.getJwt();
   if (f.length > 0) {
     writer.writeString(
       2,
@@ -670,10 +670,10 @@ proto.users.VerifyJWTRequest.serializeBinaryToWriter = function(message, writer)
 
 
 /**
- * optional string JWT = 1;
+ * optional string route = 1;
  * @return {string}
  */
-proto.users.VerifyJWTRequest.prototype.getJwt = function() {
+proto.users.VerifyJWTRequest.prototype.getRoute = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -682,16 +682,16 @@ proto.users.VerifyJWTRequest.prototype.getJwt = function() {
  * @param {string} value
  * @return {!proto.users.VerifyJWTRequest} returns this
  */
-proto.users.VerifyJWTRequest.prototype.setJwt = function(value) {
+proto.users.VerifyJWTRequest.prototype.setRoute = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 /**
- * optional string route = 2;
+ * optional string JWT = 2;
  * @return {string}
  */
-proto.users.VerifyJWTRequest.prototype.getRoute = function() {
+proto.users.VerifyJWTRequest.prototype.getJwt = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -700,7 +700,7 @@ proto.users.VerifyJWTRequest.prototype.getRoute = function() {
  * @param {string} value
  * @return {!proto.users.VerifyJWTRequest} returns this
  */
-proto.users.VerifyJWTRequest.prototype.setRoute = function(value) {
+proto.users.VerifyJWTRequest.prototype.setJwt = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 

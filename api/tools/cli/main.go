@@ -21,13 +21,13 @@ func main() {
 		panic(err)
 	}
 
-	if err = truncateTable(db, "TRUNCATE permissions"); err != nil {
+	if err = truncateTable(db, "TRUNCATE permissions CASCADE"); err != nil {
 		panic(err)
 	}
-	if err = truncateTable(db, "TRUNCATE users"); err != nil {
+	if err = truncateTable(db, "TRUNCATE users CASCADE"); err != nil {
 		panic(err)
 	}
-	if err = truncateTable(db, "TRUNCATE customers"); err != nil {
+	if err = truncateTable(db, "TRUNCATE customers CASCADE"); err != nil {
 		panic(err)
 	}
 

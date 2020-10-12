@@ -22,10 +22,16 @@ export default {
         })
 
         const login = async () => {
-            await store.dispatch('users/login', {
+            const [err] = await store.dispatch('users/login', {
                 email: state.email,
                 password: state.password
             })
+            if (err) {
+                console.log(err)
+                alert("Unauthorized")
+                return
+            }
+
             router.push('/');
         }
 

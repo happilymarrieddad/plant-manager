@@ -1,8 +1,14 @@
 <template>
-  <div class="login">
-    <input v-model="state.email" placeholder="Email" />
-    <input v-model="state.password" placeholder="Password" />
-    <button type="button" @click="login">Login</button>
+  <div class="login" style="margin-top:100px">
+    <form>
+        <div class="uk-margin">
+            <input v-model="state.email" placeholder="Email" />
+            <input v-model="state.password" placeholder="Password" />
+        </div>
+        <div uk-form-custom>
+            <button type="button" @click="login">Login</button>
+        </div>
+    </form>
   </div>
 </template>
 

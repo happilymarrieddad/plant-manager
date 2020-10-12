@@ -4,10 +4,11 @@
 CREATE TABLE IF NOT EXISTS permissions (
   id                   serial             NOT NULL PRIMARY key,
   name                 text               NOT NULL,
-  user_id              int                NOT NULL,
+  user_id              int                NOT NULL REFERENCES users (id),
+  customer_id          int                NOT NULL REFERENCES customers (id),
   created_at           TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at           TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE(name)
+  UNIQUE(name, user_id, customer_id)
 );
 
 COMMENT ON TABLE permissions IS '

@@ -20,6 +20,7 @@ func init() {
 
 	AllPermissions = append(AllPermissions, PermissionPlacesRead)
 	AllPermissions = append(AllPermissions, PermissionPlacesCreate)
+	AllPermissions = append(AllPermissions, PermissionPlacesUpdate)
 	AllPermissions = append(AllPermissions, PermissionPlacesDelete)
 
 	AllPermissions = append(AllPermissions, PermissionUsersRead)

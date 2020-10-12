@@ -10,7 +10,10 @@ service V1Places {
     rpc GetPlace(GetPlaceRequest) returns (GetPlaceReply) {}
     rpc FindPlaces(FindPlacesRequest) returns (FindPlacesReply) {}
     rpc CreatePlace(CreatePlaceRequest) returns (CreatePlaceReply) {}
+    rpc UpdatePlace(UpdatePlaceRequest) returns (types.EmptyReply) {}
     rpc DestroyPlace(DestroyPlaceRequest) returns (types.EmptyReply) {}
+
+    rpc UpdatePlaceSlot(UpdatePlaceSlotRequest) returns (types.EmptyReply) {}
 }
 
 message GetPlaceRequest {
@@ -34,7 +37,9 @@ message FindPlacesReply {
 
 message CreatePlaceRequest {
     string name = 1;
-    string JWT = 2;
+    int64 rows = 2;
+    int64 columns = 3;
+    string JWT = 4;
 }
 
 message CreatePlaceReply {
@@ -44,4 +49,16 @@ message CreatePlaceReply {
 message DestroyPlaceRequest {
     int64 id = 1;
     string JWT = 2;
+}
+
+message UpdatePlaceRequest {
+    int64 id = 1;
+    string name = 2;
+    string JWT = 3;
+}
+
+message UpdatePlaceSlotRequest {
+    int64 id = 1;
+    string name = 2;
+    string JWT = 3;
 }

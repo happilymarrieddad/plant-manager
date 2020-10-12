@@ -20,27 +20,22 @@ const routes = [
         path: '/login',
         name: 'Login',
         component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
+    },
+    {
+        path: '/places',
+        name: 'Places',
+        component: () => import(/* webpackChunkName: "placeIndex" */ '../views/places/Index.vue')
+    },
+    {
+        path: '/places/create',
+        name: 'PlaceCreate',
+        component: () => import(/* webpackChunkName: "placeCreate" */ '../views/places/Create.vue')
+    },
+    {
+        path: '/places/edit/:id',
+        name: 'PlaceEdit',
+        component: () => import(/* webpackChunkName: "placeEdit" */ '../views/places/Edit.vue')
     }
-    // {
-    //     path: '/about',
-    //     name: 'About',
-    //     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-    // },
-    // {
-    //     path: '/customers',
-    //     name: 'Customers',
-    //     component: () => import(/* webpackChunkName: "customerIndex" */ '../views/customers/Index.vue')
-    // },
-    // {
-    //     path: '/customers/create',
-    //     name: 'CustomerCreate',
-    //     component: () => import(/* webpackChunkName: "customerCreate" */ '../views/customers/Create.vue')
-    // },
-    // {
-    //     path: '/users',
-    //     name: 'Users',
-    //     component: () => import(/* webpackChunkName: "userIndex" */ '../views/users/Index.vue')
-    // }
 ]
 
 const router = createRouter({

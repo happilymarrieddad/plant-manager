@@ -111,7 +111,12 @@ func (g *grpcHandler) GetUser(ctx context.Context, req *pb.GetUserRequest) (repl
 		return nil, err
 	}
 
-	user, err := apiutils.RetrieveUsersModelFromContext(ctx).Get(req.GetId())
+	u, err := utils.GetDataFromToken(req.GetJWT())
+	if err != nil {
+		return
+	}
+
+	user, err := apiutils.RetrieveUsersModelFromContext(ctx).Get(req.GetId(), u.CustomerID)
 	if err != nil {
 		return
 	}

@@ -80,23 +80,23 @@ func GetDataFromToken(token string) (*types.User, error) {
 	}
 	user.Email = email
 
-	firstName, ok := userData["firstName"].(string)
+	firstName, ok := userData["first_name"].(string)
 	if !ok {
 		return nil, userDataErr
 	}
 	user.FirstName = firstName
 
-	lastName, ok := userData["lastName"].(string)
+	lastName, ok := userData["last_name"].(string)
 	if !ok {
 		return nil, userDataErr
 	}
 	user.LastName = lastName
 
-	customerId, ok := userData["customerId"].(float64)
+	customerID, ok := userData["customer_id"].(float64)
 	if !ok {
 		return nil, userDataErr
 	}
-	user.CustomerID = int64(customerId)
+	user.CustomerID = int64(customerID)
 
 	return user, nil
 }

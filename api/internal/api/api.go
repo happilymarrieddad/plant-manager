@@ -12,10 +12,12 @@ import (
 
 	"plant-manager/internal/api/apiutils"
 	"plant-manager/internal/api/v1/customers"
+	"plant-manager/internal/api/v1/places"
 	"plant-manager/internal/api/v1/users"
 	pb "plant-manager/pb/go"
 )
 
+// Run - run the application
 func Run(db *xorm.Engine, port int) {
 
 	lis, err := net.Listen("tcp", ":"+strconv.Itoa(port))
@@ -41,6 +43,7 @@ func Run(db *xorm.Engine, port int) {
 }
 
 func initRoutes(s *grpc.Server) {
-	pb.RegisterV1UsersServer(s, users.InitRoutes())
 	pb.RegisterV1CustomersServer(s, customers.InitRoutes())
+	pb.RegisterV1PlacesServer(s, places.InitRoutes())
+	pb.RegisterV1UsersServer(s, users.InitRoutes())
 }

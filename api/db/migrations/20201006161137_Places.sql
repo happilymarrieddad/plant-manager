@@ -6,9 +6,10 @@ CREATE TABLE IF NOT EXISTS places (
   name                 text               NOT NULL,
   rows                 int                NOT NULL,
   columns              int                NOT NULL,
+  customer_id          int                NOT NULL REFERENCES customers (id),
   created_at           TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at           TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE(name)
+  UNIQUE(name, customer_id)
 );
 
 COMMENT ON TABLE places IS '

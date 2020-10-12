@@ -5,11 +5,12 @@
 CREATE TABLE IF NOT EXISTS plants (
   id                   serial             NOT NULL PRIMARY key,
   name                 text               NOT NULL,
-  container_slot_id    int                NOT NULL,
-  plant_type_id        int                NOT NULL,
+  container_slot_id    int                NOT NULL REFERENCES container_slots (id),
+  plant_type_id        int                NOT NULL REFERENCES plant_types (id),
+  customer_id          int                NOT NULL REFERENCES customers (id),
   created_at           TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at           TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE(name, container_slot_id, plant_type_id)
+  UNIQUE(name, container_slot_id, plant_type_id, customer_id)
 );
 
 COMMENT ON TABLE plants IS '
