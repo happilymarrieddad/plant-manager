@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package varieties;
+
+import "types.proto";
+
+option go_package = ".;plantmanager";
+
+service V1Varieties {
+    rpc GetVariety(GetVarietyRequest) returns (GetVarietyReply) {}
+    rpc FindVarieties(FindVarietiesRequest) returns (FindVarietiesReply) {}
+    rpc CreateVariety(CreateVarietyRequest) returns (CreateVarietyReply) {}
+    rpc UpdateVariety(UpdateVarietyRequest) returns (types.EmptyReply) {}
+    rpc DestroyVariety(DestroyVarietyRequest) returns (types.EmptyReply) {}
+}
+
+message GetVarietyRequest {
+    int64 id = 1;
+    string JWT = 2;
+}
+
+message GetVarietyReply {
+    types.Variety variety = 1;
+}
+
+message FindVarietiesRequest {
+    int64 limit = 1;
+    int64 offset = 2;
+    string JWT = 3;
+}
+
+message FindVarietiesReply {
+    repeated types.Variety varieties = 1;
+}
+
+message CreateVarietyRequest {
+    string name = 1;
+    int64 plantTypeId = 2;
+    string JWT = 3;
+}
+
+message CreateVarietyReply {
+    types.Variety variety = 1;
+}
+
+message DestroyVarietyRequest {
+    int64 id = 1;
+    string JWT = 2;
+}
+
+message UpdateVarietyRequest {
+    int64 id = 1;
+    string name = 2;
+    int64 plantTypeId = 3;
+    string JWT = 4;
+}

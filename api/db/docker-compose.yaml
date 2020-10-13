@@ -1,6 +1,6 @@
 version: "3"
 services:
-  postgres:
+  postgres-pm:
     container_name: plant-manager-db
     image: postgis/postgis
     hostname: postgres
@@ -18,11 +18,11 @@ services:
     restart: unless-stopped
 
   # pgAdmin is a really nice system for working w/ postgres: https://www.pgadmin.org/
-  pgadmin:
+  pgadmin-pm:
     container_name: plant-manager-pgadmin
     image: dpage/pgadmin4:4.24
     depends_on:
-      - postgres
+      - postgres-pm
     ports:
       # host : container
       - "5430:80"
@@ -34,7 +34,7 @@ services:
     restart: unless-stopped
 
   # nats comm
-  nats:
+  nats-pm:
     container_name: nats
     image: nats:2.1.6
     ports:

@@ -14,7 +14,6 @@ type Places interface {
 	Find(customerID, limit, offset int64) ([]*types.Place, error)
 	Create(place *types.Place) error
 	Update(id int64, name string) error
-	UpdateSlot(id int64, name string) error
 	Destroy(id int64) error
 }
 
@@ -147,14 +146,6 @@ func (p *places) Create(place *types.Place) (err error) {
 
 func (p *places) Update(id int64, name string) (err error) {
 	if _, err = p.db.ID(id).Update(&types.Place{Name: name}); err != nil {
-		return
-	}
-
-	return
-}
-
-func (p *places) UpdateSlot(id int64, name string) (err error) {
-	if _, err = p.db.ID(id).Update(&types.PlaceSlot{Name: name}); err != nil {
 		return
 	}
 

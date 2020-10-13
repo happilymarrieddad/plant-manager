@@ -12,8 +12,6 @@ service V1Places {
     rpc CreatePlace(CreatePlaceRequest) returns (CreatePlaceReply) {}
     rpc UpdatePlace(UpdatePlaceRequest) returns (types.EmptyReply) {}
     rpc DestroyPlace(DestroyPlaceRequest) returns (types.EmptyReply) {}
-
-    rpc UpdatePlaceSlot(UpdatePlaceSlotRequest) returns (types.EmptyReply) {}
 }
 
 message GetPlaceRequest {
@@ -52,12 +50,6 @@ message DestroyPlaceRequest {
 }
 
 message UpdatePlaceRequest {
-    int64 id = 1;
-    string name = 2;
-    string JWT = 3;
-}
-
-message UpdatePlaceSlotRequest {
     int64 id = 1;
     string name = 2;
     string JWT = 3;

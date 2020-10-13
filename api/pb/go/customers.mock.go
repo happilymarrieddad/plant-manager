@@ -21,8 +21,8 @@ func (m *V1CustomersMock) GetCustomer(ctx context.Context, req *GetCustomerReque
 	res :=
 		&GetCustomerReply{
 			Customer: &Customer{
-				Id:   318,
-				Name: "corporis",
+				Id:   843,
+				Name: "est",
 			},
 		}
 	return res, nil
@@ -32,36 +32,36 @@ func (m *V1CustomersMock) FindCustomers(ctx context.Context, req *FindCustomersR
 		&FindCustomersReply{
 			Customers: []*Customer{
 				&Customer{
-					Id:   425,
+					Id:   741,
+					Name: "laudantium",
+				},
+				&Customer{
+					Id:   697,
+					Name: "ullam",
+				},
+				&Customer{
+					Id:   849,
 					Name: "quo",
 				},
 				&Customer{
-					Id:   245,
-					Name: "quaerat",
+					Id:   314,
+					Name: "soluta",
 				},
 				&Customer{
-					Id:   124,
-					Name: "adipisci",
+					Id:   345,
+					Name: "sit",
 				},
 				&Customer{
-					Id:   267,
-					Name: "cupiditate",
+					Id:   107,
+					Name: "est",
 				},
 				&Customer{
-					Id:   341,
-					Name: "nemo",
+					Id:   281,
+					Name: "error",
 				},
 				&Customer{
-					Id:   931,
-					Name: "quod",
-				},
-				&Customer{
-					Id:   768,
-					Name: "consectetur",
-				},
-				&Customer{
-					Id:   413,
-					Name: "velit",
+					Id:   946,
+					Name: "rerum",
 				},
 			},
 		}
@@ -71,8 +71,8 @@ func (m *V1CustomersMock) CreateCustomer(ctx context.Context, req *CreateCustome
 	res :=
 		&CreateCustomerReply{
 			Customer: &Customer{
-				Id:   405,
-				Name: "distinctio",
+				Id:   265,
+				Name: "rem",
 			},
 		}
 	return res, nil

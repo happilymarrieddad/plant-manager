@@ -20,7 +20,7 @@ func InitRoutes() pb.V1CustomersServer {
 // Find a specific customer
 func (h *grpcHandler) GetCustomer(ctx context.Context, req *pb.GetCustomerRequest) (reply *pb.GetCustomerReply, err error) {
 	reply = new(pb.GetCustomerReply)
-	if err = apiutils.UserHasPermission(ctx, permissions.PermissionCustomersRead); err != nil {
+	if _, err = apiutils.UserHasPermission(ctx, permissions.PermissionCustomersRead); err != nil {
 		return nil, err
 	}
 
@@ -37,7 +37,7 @@ func (h *grpcHandler) GetCustomer(ctx context.Context, req *pb.GetCustomerReques
 // Find all customers
 func (h *grpcHandler) FindCustomers(ctx context.Context, req *pb.FindCustomersRequest) (reply *pb.FindCustomersReply, err error) {
 	reply = new(pb.FindCustomersReply)
-	if err = apiutils.UserHasPermission(ctx, permissions.PermissionCustomersRead); err != nil {
+	if _, err = apiutils.UserHasPermission(ctx, permissions.PermissionCustomersRead); err != nil {
 		return nil, err
 	}
 
@@ -56,7 +56,7 @@ func (h *grpcHandler) FindCustomers(ctx context.Context, req *pb.FindCustomersRe
 // Create a customer
 func (h *grpcHandler) CreateCustomer(ctx context.Context, req *pb.CreateCustomerRequest) (reply *pb.CreateCustomerReply, err error) {
 	reply = new(pb.CreateCustomerReply)
-	if err = apiutils.UserHasPermission(ctx, permissions.PermissionCustomersCreate); err != nil {
+	if _, err = apiutils.UserHasPermission(ctx, permissions.PermissionSystemUser); err != nil {
 		return nil, err
 	}
 
@@ -75,7 +75,7 @@ func (h *grpcHandler) CreateCustomer(ctx context.Context, req *pb.CreateCustomer
 // Destroy Customer
 func (h *grpcHandler) DestroyCustomer(ctx context.Context, req *pb.DestroyCustomerRequest) (reply *pb.EmptyReply, err error) {
 	reply = new(pb.EmptyReply)
-	if err = apiutils.UserHasPermission(ctx, permissions.PermissionCustomersDelete); err != nil {
+	if _, err = apiutils.UserHasPermission(ctx, permissions.PermissionSystemUser); err != nil {
 		return nil, err
 	}
 

@@ -27,9 +27,9 @@ message PlaceSlot {
     int64 id = 1;
     string name = 2;
     int64 placeId = 3;
-    int64 row_id = 4;
-    int64 column_id = 5;
-    int64 customer_id = 6;
+    int64 rowId = 4;
+    int64 columnId = 5;
+    int64 customerId = 6;
 }
 
 message Place {
@@ -39,6 +39,20 @@ message Place {
     int64 columns = 4;
     int64 customerId = 5;
     repeated PlaceSlot slots = 6;
+}
+
+message PlantType {
+    int64 id = 1;
+    string name = 2;
+    int64 customerId = 3;
+    repeated Variety varieties = 4;
+}
+
+message Variety {
+    int64 id = 1;
+    string name = 2;
+    int64 plantTypeId = 3;
+    int64 customerId = 4;
 }
 
 message EmptyReply {

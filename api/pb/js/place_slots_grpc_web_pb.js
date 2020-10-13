@@ -75,6 +75,86 @@ proto.place_slots.V1PlaceSlotsPromiseClient =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
+ *   !proto.place_slots.GetPlaceSlotRequest,
+ *   !proto.place_slots.GetPlaceSlotReply>}
+ */
+const methodDescriptor_V1PlaceSlots_GetPlaceSlot = new grpc.web.MethodDescriptor(
+  '/place_slots.V1PlaceSlots/GetPlaceSlot',
+  grpc.web.MethodType.UNARY,
+  proto.place_slots.GetPlaceSlotRequest,
+  proto.place_slots.GetPlaceSlotReply,
+  /**
+   * @param {!proto.place_slots.GetPlaceSlotRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.place_slots.GetPlaceSlotReply.deserializeBinary
+);
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.place_slots.GetPlaceSlotRequest,
+ *   !proto.place_slots.GetPlaceSlotReply>}
+ */
+const methodInfo_V1PlaceSlots_GetPlaceSlot = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.place_slots.GetPlaceSlotReply,
+  /**
+   * @param {!proto.place_slots.GetPlaceSlotRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.place_slots.GetPlaceSlotReply.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.place_slots.GetPlaceSlotRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.Error, ?proto.place_slots.GetPlaceSlotReply)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.place_slots.GetPlaceSlotReply>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.place_slots.V1PlaceSlotsClient.prototype.getPlaceSlot =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/place_slots.V1PlaceSlots/GetPlaceSlot',
+      request,
+      metadata || {},
+      methodDescriptor_V1PlaceSlots_GetPlaceSlot,
+      callback);
+};
+
+
+/**
+ * @param {!proto.place_slots.GetPlaceSlotRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.place_slots.GetPlaceSlotReply>}
+ *     Promise that resolves to the response
+ */
+proto.place_slots.V1PlaceSlotsPromiseClient.prototype.getPlaceSlot =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/place_slots.V1PlaceSlots/GetPlaceSlot',
+      request,
+      metadata || {},
+      methodDescriptor_V1PlaceSlots_GetPlaceSlot);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
  *   !proto.place_slots.UpdatePlaceSlotRequest,
  *   !proto.types.EmptyReply>}
  */

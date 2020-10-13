@@ -107,13 +107,9 @@ func (g *grpcHandler) AddUser(ctx context.Context, req *pb.AddUserRequest) (repl
 
 func (g *grpcHandler) GetUser(ctx context.Context, req *pb.GetUserRequest) (reply *pb.GetUserReply, err error) {
 	reply = new(pb.GetUserReply)
-	if err = apiutils.UserHasPermission(ctx, permissions.PermissionUsersRead); err != nil {
-		return nil, err
-	}
-
-	u, err := utils.GetDataFromToken(req.GetJWT())
+	u, err := apiutils.UserHasPermission(ctx, permissions.PermissionUsersRead)
 	if err != nil {
-		return
+		return nil, err
 	}
 
 	user, err := apiutils.RetrieveUsersModelFromContext(ctx).Get(req.GetId(), u.CustomerID)
@@ -129,13 +125,9 @@ func (g *grpcHandler) GetUser(ctx context.Context, req *pb.GetUserRequest) (repl
 // Find all users
 func (g *grpcHandler) FindUsers(ctx context.Context, req *pb.FindUsersRequest) (reply *pb.FindUsersReply, err error) {
 	reply = new(pb.FindUsersReply)
-	if err = apiutils.UserHasPermission(ctx, permissions.PermissionUsersRead); err != nil {
-		return
-	}
-
-	user, err := utils.GetDataFromToken(req.GetJWT())
+	user, err := apiutils.UserHasPermission(ctx, permissions.PermissionUsersRead)
 	if err != nil {
-		return
+		return nil, err
 	}
 
 	custs, err := apiutils.RetrieveUsersModelFromContext(ctx).Find(user.CustomerID)

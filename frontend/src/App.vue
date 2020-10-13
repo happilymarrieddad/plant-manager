@@ -3,21 +3,35 @@
     <nav id="nav" v-show="state.showNav" class="uk-navbar-container" uk-navbar>
         <div class="uk-navbar-left">
             <ul class="uk-navbar-nav">
-                <li><router-link to="/">Home</router-link></li>
-                <li><router-link to="/places">Places</router-link></li>
+                <li>
+                    <router-link to="/">Home</router-link>
+                </li>
+                <li>
+                    <router-link to="/places">Places</router-link>
+                </li>
+                <li>
+                    <router-link to="/plant_types">Plant Types</router-link>
+                </li>
             </ul>
         </div>
     </nav>
     <div class="uk-container">
-        <router-view/>
+        <router-view />
     </div>
 </div>
 </template>
 
 <script>
-import { reactive, computed } from 'vue'
-import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import {
+    reactive,
+    computed
+} from 'vue'
+import {
+    useRouter
+} from 'vue-router';
+import {
+    useStore
+} from 'vuex';
 
 export default {
     setup() {
@@ -38,7 +52,7 @@ export default {
 </script>
 
 <style>
-    .icon-style:hover {
-        cursor: pointer;
-    }
+.icon-style:hover {
+    cursor: pointer;
+}
 </style>

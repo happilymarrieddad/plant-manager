@@ -2,7 +2,10 @@ import { createStore } from 'vuex'
 import uikit from 'uikit';
 
 import places from './modules/places'
+import place_slots from './modules/place-slots'
+import plant_types from './modules/plant-types'
 import users from './modules/users'
+import varieties from './modules/varieties'
 
 export default createStore({
   state: {
@@ -24,6 +27,9 @@ export default createStore({
   },
   modules: {
       places,
-      users
+      place_slots,
+      plant_types,
+      users,
+      varieties
   }
 })

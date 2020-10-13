@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package plant_types;
+
+import "types.proto";
+
+option go_package = ".;plantmanager";
+
+service V1PlantTypes {
+    rpc GetPlantType(GetPlantTypeRequest) returns (GetPlantTypeReply) {}
+    rpc FindPlantTypes(FindPlantTypesRequest) returns (FindPlantTypesReply) {}
+    rpc CreatePlantType(CreatePlantTypeRequest) returns (CreatePlantTypeReply) {}
+    rpc UpdatePlantType(UpdatePlantTypeRequest) returns (types.EmptyReply) {}
+    rpc DestroyPlantType(DestroyPlantTypeRequest) returns (types.EmptyReply) {}
+}
+
+message GetPlantTypeRequest {
+    int64 id = 1;
+    string JWT = 2;
+}
+
+message GetPlantTypeReply {
+    types.PlantType plantType = 1;
+}
+
+message FindPlantTypesRequest {
+    int64 limit = 1;
+    int64 offset = 2;
+    string JWT = 3;
+}
+
+message FindPlantTypesReply {
+    repeated types.PlantType plantTypes = 1;
+}
+
+message CreatePlantTypeRequest {
+    string name = 1;
+    string JWT = 2;
+}
+
+message CreatePlantTypeReply {
+    types.PlantType plantType = 1;
+}
+
+message DestroyPlantTypeRequest {
+    int64 id = 1;
+    string JWT = 2;
+}
+
+message UpdatePlantTypeRequest {
+    int64 id = 1;
+    string name = 2;
+    string JWT = 3;
+}

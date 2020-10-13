@@ -16,7 +16,7 @@ const getters = {
 };
 
 const actions = {
-    async getAll({ state, rootState, commit }, { limit, offset } = {}) {
+    getAll({ state, rootState, commit }, { limit, offset } = {}) {
         state.loading = true;
         const client = new placeClient.V1PlacesClient(rootState.apiUrl)
         const request = new placeObjs.FindPlacesRequest();
@@ -25,19 +25,19 @@ const actions = {
         request.setOffset(offset || 0)
         request.setJwt(window.localStorage.getItem('jwt'))
 
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             client.findPlaces(request, { 'custom-header-1': 'value1' }, (err, resp) => {
                 state.loading = false;
                 if (err) {
-                    return resolve([null, err.message]);
+                    return reject(err.message);
                 }
                 const list = resp.toObject().placesList
                 commit('setList', list)
-                return resolve([list]);
+                return resolve(list);
             })
         })
     },
-    async createOne({ state, rootState }, { name, rows, columns }) {
+    createOne({ state, rootState }, { name, rows, columns }) {
         state.loading = true;
         const client = new placeClient.V1PlacesClient(rootState.apiUrl)
         const request = new placeObjs.CreatePlaceRequest();
@@ -47,18 +47,18 @@ const actions = {
         request.setColumns(columns)
         request.setJwt(window.localStorage.getItem('jwt'))
 
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             client.createPlace(request, { 'custom-header-1': 'value1' }, (err) => {
                 state.loading = false;
                 if (err) {
-                    return resolve(err.message);
+                    return reject(err.message);
                 }
 
                 return resolve(null);
             })
         })
     },
-    async destroyOne({ state, rootState }, id = 0) {
+    destroyOne({ state, rootState }, id = 0) {
         state.loading = true;
         const client = new placeClient.V1PlacesClient(rootState.apiUrl)
         const request = new placeObjs.DestroyPlaceRequest()
@@ -66,18 +66,18 @@ const actions = {
         request.setId(id)
         request.setJwt(window.localStorage.getItem('jwt'))
 
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             client.destroyPlace(request, { 'custom-header-1': 'value1' }, (err) => {
                 state.loading = false;
                 if (err) {
-                    return resolve(err.message);
+                    return reject(err.message);
                 }
 
-                return resolve();
+                return resolve(null);
             })
         })
     },
-    async getOne({ state, rootState }, id = 0) {
+    getOne({ state, rootState }, id = 0) {
         state.loading = true;
         const client = new placeClient.V1PlacesClient(rootState.apiUrl)
         const request = new placeObjs.GetPlaceRequest()
@@ -85,43 +85,27 @@ const actions = {
         request.setId(id)
         request.setJwt(window.localStorage.getItem('jwt'))
 
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             client.getPlace(request, { 'custom-header-1': 'value1' }, (err, resp) => {
                 state.loading = false;
                 if (err) {
-                    return resolve([null, err.message]);
+                    return reject(err.message);
                 }
 
-                return resolve([resp.toObject().place]);
+                return resolve(resp.toObject().place);
             })
         })
     },
-    async updateOne({ state, rootState, commit }, { id, name, slots = [] }) {
+    updateOne({ state, rootState, dispatch, commit }, { id, name, slots = [] }) {
         state.loading = true;
         const client = new placeClient.V1PlacesClient(rootState.apiUrl)
 
         const proms = slots.map(slot => {
-            return (slot.id && slot.name) ? new Promise((resolve) => {
-                const request = new placeObjs.UpdatePlaceSlotRequest()
-
-                request.setId(slot.id)
-                request.setName(slot.name)
-                request.setJwt(window.localStorage.getItem('jwt'))
-
-                client.updatePlaceSlot(request, { 'custom-header-1': 'value1' }, (err) => {
-                    state.loading = false;
-                    if (err) {
-                        commit('error', err.message, { root: true })
-                        return resolve([err.message]);
-                    }
-
-                    return resolve([null]);
-                })
-            }) : Promise.resolve()
+            return (slot.id && slot.name) ? dispatch('place_slots/updateOne', slot, { root: true }) : Promise.resolve()
         })
 
         return Promise.all([
-            new Promise((resolve) => {
+            new Promise((resolve, reject) => {
                 const request = new placeObjs.UpdatePlaceRequest()
         
                 request.setId(id)
@@ -132,10 +116,10 @@ const actions = {
                     state.loading = false;
                     if (err) {
                         commit('error', err.message, { root: true })
-                        return resolve([err.message]);
+                        return reject(err.message);
                     }
 
-                    return resolve([null]);
+                    return resolve(null);
                 })
             }),
             ...proms
