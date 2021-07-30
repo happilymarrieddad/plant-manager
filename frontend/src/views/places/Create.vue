@@ -1,7 +1,9 @@
 <template>
-  <div class="place-create">
+<div class="place-create">
     <ul class="uk-breadcrumb">
-        <li><router-link to="/places"><strong>Back to Places</strong></router-link></li>
+        <li>
+            <router-link to="/places"><strong>Places</strong></router-link>
+        </li>
     </ul>
 
     <form>
@@ -15,15 +17,21 @@
             <button type="button" @click="create">Create</button>
         </div>
     </form>
-  </div>
+</div>
 </template>
 
 <script>
-import { reactive } from 'vue'
-import { useStore } from "vuex";
-import { useRouter } from 'vue-router';
+import {
+    reactive
+} from 'vue'
+import {
+    useStore
+} from "vuex";
+import {
+    useRouter
+} from 'vue-router';
 
-export default {    
+export default {
     name: 'PlaceCreate',
     setup() {
         const store = useStore();
@@ -36,18 +44,15 @@ export default {
         })
 
         const create = async () => {
-            let err = await store.dispatch('places/createOne', {
+            await store.dispatch('places/createOne', {
                 name: state.name,
                 rows: state.rows,
                 columns: state.columns
             })
-            if (err) {
-                console.log(err)
-                alert(err)
-                return
-            }
 
-            router.push({ path: '/places' })
+            router.push({
+                path: '/places'
+            })
         }
 
         return {

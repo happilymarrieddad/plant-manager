@@ -29,7 +29,7 @@ Facility Example - We use the place as the location
 [
     "places": [{"id": 1, "name": "Greenhouse 1"}],
     "place_slots": [{"id": 1, "name": "Machine 1", "place_id": 1}],
-    "containers": [{"id": 1, "name": "40ct Plastic Container", "place_id": 2}],
+    "containers": [{"id": 1, "name": "40ct Plastic Container", "place_slot_id": 2}],
     "container_slots":[
         {"id": 1, "row": 0, "column": 0, "container_id": 1},
         {"id": 2, "row": 0, "column": 1, "container_id": 1},
@@ -49,7 +49,7 @@ Facility Example - We use the place a machine at the place (TODO: Add logitude/l
     "locations": [{"id": 1, "name": "Some Location"}],
     "places": [{"id": 1, "name": "Machine 1", "location_id": 1}],
     "place_slots": [{"id": 1, "name": "Slot 1 of 4 in machine", "place_id": 1}],
-    "containers": [{"id": 1, "name": "40ct Plastic Container", "place_id": 2}],
+    "containers": [{"id": 1, "name": "40ct Plastic Container", "place_slot_id": 2}],
     "container_slots":[
         {"id": 1, "row": 0, "column": 0, "container_id": 1},
         {"id": 2, "row": 0, "column": 1, "container_id": 1},

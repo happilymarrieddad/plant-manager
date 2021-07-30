@@ -1,7 +1,10 @@
 <template>
-  <div class="place-edit">
+<div class="place-edit">
     <ul class="uk-breadcrumb">
-        <li><router-link to="/places"><strong>Back to Places</strong></router-link></li>
+        <li>
+            <router-link to="/places"><strong>Places</strong></router-link>
+        </li>
+        <li v-html="state.name"></li>
     </ul>
 
     <form>
@@ -15,13 +18,16 @@
             <table class="uk-table">
                 <tbody>
                     <tr v-for="row in state.slots" v-bind:key="row">
+                        <td v-for="item in row" v-bind:key="item" />
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr v-for="row in state.slots" v-bind:key="row">
                         <th v-for="item in row" v-bind:key="item">
-                            {{item.rowId+1}}/{{item.columnId+1}} <input
-                                v-model="item.name"
-                                class="uk-input"
-                                type="text"
-                                :placeholder="item.placeholder"
-                            >
+                            <span>{{item.rowid+1}}/{{item.columnid+1}}</span>
+                            <span v-if="item.has_plant" uk-icon="image"></span>
+                            <router-link :to="'/plant-slots/edit/'+item.id"><span class="icon-style" uk-icon="cog"></span></router-link>
+                            <input v-model="item.name" class="uk-input" type="text" :placeholder="item.placeholder">
                         </th>
                     </tr>
                 </tbody>
@@ -32,15 +38,22 @@
             <button type="button" @click="save">Save</button>
         </div>
     </form>
-  </div>
+</div>
 </template>
 
 <script>
-import { reactive, onMounted } from 'vue'
-import { useStore } from "vuex";
-import { useRouter } from 'vue-router';
+import {
+    reactive,
+    onMounted
+} from 'vue'
+import {
+    useStore
+} from "vuex";
+import {
+    useRouter
+} from 'vue-router';
 
-export default {    
+export default {
     name: 'PlaceEdit',
     setup() {
         const store = useStore();
@@ -56,27 +69,27 @@ export default {
             name: '',
             rows: null,
             columns: null,
-            slots: [[]]
+            slots: [
+                []
+            ]
         })
 
         const fetchData = async () => {
-            let [res, err] = await store.dispatch('places/getOne', state.id)
-            if (err) {
-                store.dispatch('error', err)
-                return
-            }
+            let res = await store.dispatch('places/getOne', state.id)
 
             state.name = res.name;
             state.rows = res.rows;
             state.columns = res.columns;
-        
-            let slots = [[]];
-            res.slotsList.forEach((el,index) => {
-                if (!slots[el.rowId]) {
-                    slots[el.rowId] = [];
+
+            let slots = [];
+            res.slotsList.forEach((el, index) => {
+                if (!slots[el.rowid]) {
+                    slots[el.rowid] = [];
                 }
-                el.placeholder = `Place Slot Name (Ground Plot ${index+1}/Greenhouse ${index+1})`
-                slots[el.rowId][el.columnId] = el;
+                el.placeholder = `Place Slot Name (Ground Plot ${index+1}/Greenhouse ${index+1})`;
+                // TODO: Find an easy way to set this
+                el.has_plant = false;
+                slots[el.rowid][el.columnid] = el;
             })
             state.slots = slots;
             rawData.slots = res.slotsList;
@@ -93,7 +106,9 @@ export default {
                 slots: rawData.slots
             })
 
-            router.push({ path: '/places' })
+            router.push({
+                path: '/places'
+            })
         }
 
         return {

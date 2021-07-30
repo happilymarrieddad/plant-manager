@@ -1,8 +1,10 @@
 <template>
-  <div class="places">
+<div class="places">
     <ul class="uk-breadcrumb">
         <li><span>Places</span></li>
-        <li><router-link to="/places/create"><span uk-icon="plus-circle"></span></router-link></li>
+        <li>
+            <router-link to="/places/create"><span uk-icon="plus-circle"></span></router-link>
+        </li>
     </ul>
 
     <table class="uk-table">
@@ -27,12 +29,18 @@
             </tr>
         </tbody>
     </table>
-  </div>
+</div>
 </template>
 
 <script>
-import { reactive, computed, onMounted } from 'vue'
-import { useStore } from "vuex";
+import {
+    reactive,
+    computed,
+    onMounted
+} from 'vue'
+import {
+    useStore
+} from "vuex";
 import uikit from 'uikit';
 
 export default {
@@ -50,11 +58,7 @@ export default {
 
         const destroy = (id = 0) => {
             uikit.modal.confirm('Are you sure?').then(async () => {
-                const err = await store.dispatch('places/destroyOne', id)
-                if (err) {
-                    alert(err)
-                    return
-                }
+                await store.dispatch('places/destroyOne', id)
 
                 fetchData()
             });

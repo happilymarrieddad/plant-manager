@@ -12,8 +12,11 @@ import (
 
 	"plant-manager/internal/api/apiutils"
 	"plant-manager/internal/api/v1/customers"
+	"plant-manager/internal/api/v1/place_slots"
 	"plant-manager/internal/api/v1/places"
+	"plant-manager/internal/api/v1/plant_types"
 	"plant-manager/internal/api/v1/users"
+	"plant-manager/internal/api/v1/varieties"
 	pb "plant-manager/pb/go"
 )
 
@@ -45,5 +48,8 @@ func Run(db *xorm.Engine, port int) {
 func initRoutes(s *grpc.Server) {
 	pb.RegisterV1CustomersServer(s, customers.InitRoutes())
 	pb.RegisterV1PlacesServer(s, places.InitRoutes())
+	pb.RegisterV1PlaceSlotsServer(s, place_slots.InitRoutes())
+	pb.RegisterV1PlantTypesServer(s, plant_types.InitRoutes())
 	pb.RegisterV1UsersServer(s, users.InitRoutes())
+	pb.RegisterV1VarietiesServer(s, varieties.InitRoutes())
 }

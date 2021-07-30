@@ -35,6 +35,26 @@ const routes = [
         path: '/places/edit/:id',
         name: 'PlaceEdit',
         component: () => import(/* webpackChunkName: "placeEdit" */ '../views/places/Edit.vue')
+    },
+    {
+        path: '/plant-slots/edit/:id',
+        name: 'PlaceSlotsEdit',
+        component: () => import(/* webpackChunkName: "placeSlotEdit" */ '../views/place-slots/Edit.vue')
+    },
+    {
+        path: '/plant_types',
+        name: 'PlantTypes',
+        component: () => import(/* webpackChunkName: "plantTypeIndex" */ '../views/plant-types/Index.vue')
+    },
+    {
+        path: '/plant_types/create',
+        name: 'PlantTypeCreate',
+        component: () => import(/* webpackChunkName: "plantTypeCreate" */ '../views/plant-types/Create.vue')
+    },
+    {
+        path: '/plant_types/edit/:id',
+        name: 'PlantTypeEdit',
+        component: () => import(/* webpackChunkName: "plantTypeEdit" */ '../views/plant-types/Edit.vue')
     }
 ]
 

@@ -27,8 +27,29 @@ func RetrievePlacesModelFromContext(ctx context.Context) models.Places {
 	return nil
 }
 
+func RetrievePlaceSlotsModelFromContext(ctx context.Context) models.PlaceSlots {
+	if c, ok := ctx.Value(globalPlaceSlotsKey).(models.PlaceSlots); ok {
+		return c
+	}
+	return nil
+}
+
 func RetrievePermissionsModelFromContext(ctx context.Context) models.Permissions {
 	if c, ok := ctx.Value(globalPermissionsKey).(models.Permissions); ok {
+		return c
+	}
+	return nil
+}
+
+func RetrievePlantTypesModelFromContext(ctx context.Context) models.PlantTypes {
+	if c, ok := ctx.Value(globalPlantTypesKey).(models.PlantTypes); ok {
+		return c
+	}
+	return nil
+}
+
+func RetrieveVarietiesModelFromContext(ctx context.Context) models.Varieties {
+	if c, ok := ctx.Value(globalVarietiesKey).(models.Varieties); ok {
 		return c
 	}
 	return nil

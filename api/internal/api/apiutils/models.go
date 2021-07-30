@@ -16,6 +16,9 @@ const (
 	globalCustomersKey   = "v1models:customers"
 	globalPermissionsKey = "v1models:permissions"
 	globalPlacesKey      = "v1models:places"
+	globalPlaceSlotsKey  = "v1models:place_slots"
+	globalPlantTypesKey  = "v1models:plant_types"
+	globalVarietiesKey   = "v1models:varieties"
 	storageUserKey       = "storage:user"
 )
 
@@ -45,6 +48,21 @@ func ModelInjector(db *xorm.Engine) grpc.UnaryServerInterceptor {
 			ctx,
 			globalPlacesKey,
 			models.NewPlace(db),
+		)
+		ctx = context.WithValue(
+			ctx,
+			globalPlaceSlotsKey,
+			models.NewPlaceSlots(db),
+		)
+		ctx = context.WithValue(
+			ctx,
+			globalPlantTypesKey,
+			models.NewPlantType(db),
+		)
+		ctx = context.WithValue(
+			ctx,
+			globalVarietiesKey,
+			models.NewVariety(db),
 		)
 
 		// BEFORE the request

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package place_slots;
+
+import "types.proto";
+
+option go_package = ".;plantmanager";
+
+service V1PlaceSlots {
+    rpc GetPlaceSlot(GetPlaceSlotRequest) returns (GetPlaceSlotReply) {}
+    rpc UpdatePlaceSlot(UpdatePlaceSlotRequest) returns (types.EmptyReply) {}
+}
+
+message GetPlaceSlotRequest {
+    int64 id = 1;
+    string JWT = 2;
+}
+
+message GetPlaceSlotReply {
+    types.PlaceSlot placeSlot = 1;
+}
+
+message UpdatePlaceSlotRequest {
+    int64 id = 1;
+    string name = 2;
+    string JWT = 3;
+}
